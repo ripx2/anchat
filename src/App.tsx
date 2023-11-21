@@ -1,8 +1,9 @@
+import "@fontsource/plus-jakarta-sans"; // Defaults to weight 400
 import './App.css'
-import { HomePage } from './components/HomePage'
+import { JoinChatPage } from './components/JoinChatPage'
 
 function App() {
-  return <HomePage />
+  return <JoinChatPage />
 }
 
 export default App

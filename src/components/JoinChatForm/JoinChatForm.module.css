@@ -1,0 +1,12 @@
+.root {
+  min-width: 15rem;
+  min-height: 10rem;
+  padding: 1rem;
+}
+
+.submitButton {
+  background-color: var(--primary-color);
+  color: var(--primary-color-contrast);
+  font-size: 1.05rem;
+  padding: 0.7em 0.9em;
+}
