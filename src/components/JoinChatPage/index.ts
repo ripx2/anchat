@@ -1,1 +1,1 @@
-export * from './JoinChatpage'
+export * from './JoinChatPage'

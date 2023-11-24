@@ -1,8 +1,10 @@
 * {
   box-sizing: border-box;
+  font-family: 'Plus Jakarta Sans';
 }
 
-html, body {
+html,
+body {
   padding: 0;
   margin: 0;
   border: none;
@@ -11,17 +13,37 @@ html, body {
 button {
   border: none;
   outline: none;
-  border-radius: var(--card-border-radius);
+  border-radius: var(--button-boder-radius);
   margin: 0;
   padding: 0.5em 0.7em;
-  box-shadow: var(--card-box-shadow);
-  font-family: 'Plus Jakarta Sans';
+  box-shadow: var(--button-box-shadow);
+  cursor: pointer;
 }
 
 
 body {
+
+  --h2-font-color: rgba(27, 37, 89, 1);
+  --h2-font-size: 1.5rem;
+
+  --paragraph-color:rgba(113, 128, 150, 1)
+  --paragraph-font-size: 1rem;
+  --paragraph-line-height: 1.75rem;
+
+
+  --button-boder-radius: 0.5rem;
+  /*--button-box-shadow: 0.1rem 0.4rem 0.4rem 0.5rem rgba(113, 202, 209, 1)/*la hizo Jorge N*/
+  --button-box-shadow: 0.2rem 0.3em 1rem 0.125rem var(--color-for-shadow); /*La hice yo*/
+
+  --inputText-border-radius: 0.8rem;
+  --inputText-border-notFocus: 0.0625rem;
+  --inputText-border-focus: 0.08rem;
+
   --card-border-radius: 0.4rem;
-  --card-box-shadow: 0.1rem 0.1rem 0.5rem 0.2rem #00000033;
+  /*--card-box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem #00000033; La coloco Jorge N*/
+  --card-box-shadow: 0.25rem 0.9375rem 1.125rem 0.125rem var(--color-for-shadow); /*la hice yo*/
+  /*--card-box-shadow: 0.875rem 1.6875rem 2.8125rem 0.25rem var(--color-for-shadow); /*la del dise frigma*/
+  --color-for-shadow: rgba(112, 144, 176, 0.2);
   --primary-color: #6FCAD0;
   --primary-color-contrast: #FFFFFF;
 }

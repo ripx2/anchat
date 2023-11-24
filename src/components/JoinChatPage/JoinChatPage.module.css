@@ -7,3 +7,7 @@
   align-items: center;
 }
 
+.card{
+  width: 100%;
+  max-width: 30.875rem;
+}
