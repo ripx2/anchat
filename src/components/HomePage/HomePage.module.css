@@ -1,4 +1,49 @@
 /* Define classes selectors only */
 .root {
+    width: 100vw;
+    height: 100vh;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 
+.startElements {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.createChatText {
+    display: block;
+    color: var(--paragraph-color);
+    font-size: 2rem;
+    font-weight: 500;
+    text-decoration: none;
+    padding-right: 2rem;
+    transition: all ease-in-out 0.2s;
+}
+
+.startElements:hover .createChatText{
+    letter-spacing: 0.07rem;
+    /*color: rgba(113, 128, 150, 1);*/
+    color: rgb(75, 85, 100);
+}
+
+.createChatButton {
+    background-color: var(--primary-color);
+    border-radius: 0.75rem;
+    height: 3.375rem;
+    width: 3.8125rem;
+    box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
+}
+
+.createChatButton:hover {
+    &~.createChatText{
+        text-shadow: 0em 0em 0.3em var(--primary-color);
+        letter-spacing: 0.12rem;
+    }
 }

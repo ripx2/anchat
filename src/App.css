@@ -26,7 +26,7 @@ body {
   --h2-font-color: rgba(27, 37, 89, 1);
   --h2-font-size: 1.5rem;
 
-  --paragraph-color:rgba(113, 128, 150, 1)
+  --paragraph-color:rgba(113, 128, 150, 1);
   --paragraph-font-size: 1rem;
   --paragraph-line-height: 1.75rem;
 
@@ -44,6 +44,8 @@ body {
   --card-box-shadow: 0.25rem 0.9375rem 1.125rem 0.125rem var(--color-for-shadow); /*la hice yo*/
   /*--card-box-shadow: 0.875rem 1.6875rem 2.8125rem 0.25rem var(--color-for-shadow); /*la del dise frigma*/
   --color-for-shadow: rgba(112, 144, 176, 0.2);
-  --primary-color: #6FCAD0;
+  /*--primary-color: rgb(113, 202, 209); /*Lo saco Jorge Con paint*/
+  --primary-color: rgba(123, 203, 212, 1); /*Estaba en figma*/
+
   --primary-color-contrast: #FFFFFF;
 }

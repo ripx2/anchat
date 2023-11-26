@@ -29,7 +29,7 @@ export function JoinChatForm(props: JoinChatFormProps) {
       </div>
 
       <div className={styles.randomName}>
-        <a>Generar nombre random</a>
+        <a href='#'>Generar nombre random</a>
       </div>
       
     </form>

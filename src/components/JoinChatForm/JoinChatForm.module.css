@@ -142,6 +142,5 @@ p {
   position: absolute;
   left: 5%;
   color: var(--primary-color);
-  cursor: pointer;
   font-weight: bold;
 }
