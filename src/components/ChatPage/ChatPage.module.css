@@ -7,10 +7,11 @@
     justify-content: center;
     align-items: center;
     flex-direction: row;
+    flex-wrap: wrap;
 }
 
 /*Contenedor padre*/
-.sendMessageElements { 
+.sendMessageElements {
     width: 50.875rem;
     height: 3.375rem;
     display: flex;
@@ -20,17 +21,19 @@
     margin-left: 0.5rem;
     margin-right: 0.5rem;
     margin-bottom: 3rem;
+    align-self: end;
 }
 
 /*Hijo 1*/
 .messageAreaInput {
-    height:3.375rem;
+    height: 3.375rem;
     flex-grow: 0.9066;
     /* width: 90.66%; /*Porcentaje del width del padre */
     padding: 0;
     font-size: 0.875rem;
     padding-inline-start: 1.125rem;
     line-height: 0.875rem;
+    background-color: var(--inputText-background-color);
     color: var(--paragraph-color);
     border: var(--inputText-border-notFocus) solid var(--inputText-boder-color);
     margin-right: 0.625rem;
@@ -38,7 +41,7 @@
     transition: all ease-in-out 0.4s;
 }
 
-.messageAreaInput:checked{
+.messageAreaInput:checked {
     outline: 0;
     border: none;
 }
@@ -49,7 +52,7 @@
 }
 
 /*Hijo 2*/
-.sendMessageButton{
+.sendMessageButton {
     background-color: var(--primary-color);
     border-radius: 0.75rem;
     height: 100%;
@@ -61,7 +64,7 @@
     box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
 }
 
-.icon{
+.icon {
     font-size: 1.5rem;
     color: white;
     vertical-align: middle;
@@ -69,3 +72,75 @@
 
 
 /*CON LAS NOTIFICACIONES*/
+.notificationContainer {
+    /*Contenedor para de las notificaciones*/
+    width: 50.875rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    row-gap: 1rem;
+    align-self: start;
+    margin-top: 3rem;
+}
+
+.notificationBox {
+    border-radius: var(--boder-radius-notification-box);
+    width: 54.42%;
+    height: 3.9375rem;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+
+/*ELEMENTOS COPIAR LINK PARA EL CHAT*/
+.copyLinkSection {
+    position: absolute;
+    top: 2rem;
+    left: 76.25rem;
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 19.0625rem;
+    height: 4.375rem;
+    border: 1px solid rgba(1, 181, 116, 0.2);
+    box-shadow: 14px 27px 45px 4px rgba(112, 144, 176, 0.2);
+
+
+}
+
+.copyLinkButton {
+    background: linear-gradient(180deg, #7BCBD4 0%, #29C6B7 100%); 
+    border-radius: 0.75rem;
+    height: 2.5rem;
+    width: 2.5rem;
+    box-shadow: 0px 21px 27px -10px rgba(67, 200, 192, 0.47);
+    margin-right: 1rem;
+}
+
+.copyLinkText {
+    display: block;
+    color: rgba(18, 15, 67, 1);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.125rem;
+    text-decoration: none;
+    padding-right: 2rem;
+    transition: all ease-in-out 0.2s;
+}
+
+
+
+/*AREA PARA MOSTRAS MENSAJES DEL CHAT*/
+.messagesChatArea {
+    width: 50.875rem;
+    flex-grow: 1;
+}
