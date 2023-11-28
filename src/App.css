@@ -23,6 +23,15 @@ button {
 
 body {
 
+  --background-color-notification-box:rgba(201, 251, 213, 1);
+
+
+  --notification-text-color: rgba(1, 181, 116, 1);
+  --notification-text-size: 1rem;
+  --notification-text-fondWeight: 500;
+  --notification-text-lineHeight: 1rem;
+
+
   --h2-font-color: rgba(27, 37, 89, 1);
   --h2-font-size: 1.5rem;
 
@@ -38,6 +47,7 @@ body {
   --inputText-border-radius: 0.8rem;
   --inputText-border-notFocus: 0.0625rem;
   --inputText-border-focus: 0.08rem;
+  --inputText-boder-color:  rgb(210, 218, 228);
 
   --card-border-radius: 0.4rem;
   /*--card-box-shadow: 0.2rem 0.2rem 0.5rem 0.2rem #00000033; La coloco Jorge N*/

@@ -1,0 +1,13 @@
+.root{
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color-notification-box);
+}
+
+.notification{
+    color: var(--notification-text-color);
+    text-align: center;
+    line-height: var(--notification-text-lineHeight);
+    font-size: var(--notification-text-size);
+    font-weight: var(--notification-text-fondWeight);
+}

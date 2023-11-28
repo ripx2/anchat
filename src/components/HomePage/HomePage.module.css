@@ -29,7 +29,6 @@
 
 .startElements:hover .createChatText{
     letter-spacing: 0.07rem;
-    /*color: rgba(113, 128, 150, 1);*/
     color: rgb(75, 85, 100);
 }
 
@@ -39,11 +38,4 @@
     height: 3.375rem;
     width: 3.8125rem;
     box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
-}
-
-.createChatButton:hover {
-    &~.createChatText{
-        text-shadow: 0em 0em 0.3em var(--primary-color);
-        letter-spacing: 0.12rem;
-    }
 }
