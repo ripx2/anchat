@@ -10,4 +10,6 @@
     line-height: var(--notification-text-lineHeight);
     font-size: var(--notification-text-size);
     font-weight: var(--notification-text-fondWeight);
+    margin-inline-start: 0.5rem;
+    margin-inline-end: 0.5rem;
 }

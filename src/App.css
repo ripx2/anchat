@@ -21,7 +21,18 @@ button {
 }
 
 
+
 body {
+
+  --copyLinkSection-border: 0.0625rem solid rgba(1, 181, 116, 0.2);
+  --copyLinkSection-box-shadow: 0.875rem 1.6875rem 2.8125rem 0.25rem rgba(112, 144, 176, 0.2);
+  --copyLinkSection-border-radius: 0.75rem;
+  
+  
+  --copyLinkButton-background: linear-gradient(180deg, #7BCBD4 0%, #29C6B7 100%);
+  --copyLinkButton-border-radius: 0.75rem;
+  --copyLinkButton-box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
+
 
   --background-color-notification-box:rgba(201, 251, 213, 1);
   --boder-radius-notification-box:0.875rem;

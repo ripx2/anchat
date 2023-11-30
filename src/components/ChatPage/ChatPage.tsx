@@ -8,14 +8,22 @@ export function ChatPage() {
 
   return (
     <div className={styles.root}>
-      <div className={styles.copyLinkSection}>
-        <button className={styles.copyLinkButton}><FiSend className={styles.iconCopyLink} /></button>
-        <a className={styles.copyLinkText} href="#">Copiar Link para el chat</a>
-      </div>
-      <div className={styles.notificationContainer}>
-        <NotificationMessage message={messageLinkCopied} className={styles.notificationBox} />
-        <NotificationMessage message={messageUsedAddedChat} className={styles.notificationBox} />
-      </div>
+
+        <div className={styles.notificationContainer}>
+          <NotificationMessage message={messageLinkCopied} className={styles.notificationBox} />
+          <NotificationMessage message={messageUsedAddedChat} className={styles.notificationBox} />
+        </div>
+
+
+        <div className={styles.copyLinkSection}>
+          <button className={styles.copyLinkButton}><FiSend className={styles.iconCopyLink} /></button>
+          <a className={styles.copyLinkText} href="#">Copiar Link para el chat</a>
+        </div>
+
+     
+
+
+
 
       <div className={styles.messagesChatArea}>
 
