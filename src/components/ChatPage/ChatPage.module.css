@@ -1,229 +1,200 @@
 .root {
-    width: 100vw;
-    height: 100vh;
-    padding: 0rem;
-    margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-    flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;
+  padding: 0rem;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  --max-content-width: 50rem;
+  --send-message-section-height: 3.375rem;
+  --copyLinkSection-background: #ffffff;
 }
 
-/*Contenedor padre*/
-.sendMessageElements {
-    width: 50.875rem;
-    height: 3.375rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    margin-bottom: 3rem;
-    align-self: end;
+.sendMessageContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.6rem 0.8rem;
+  border-top: 1px solid #e6e6e6;
 }
 
-/*Hijo 1*/
-.messageAreaInput {
-    height: 3.375rem;
-    flex-grow: 0.9066;
-    /* width: 90.66%; /*Porcentaje del width del padre */
-    padding: 0;
-    font-size: 0.875rem;
-    padding-inline-start: 1.125rem;
-    line-height: 0.875rem;
-    background-color: var(--inputText-background-color);
-    color: var(--paragraph-color);
-    border: var(--inputText-border-notFocus) solid var(--inputText-boder-color);
-    margin-right: 0.625rem;
-    border-radius: var(--inputText-border-radius);
-    transition: all ease-in-out 0.4s;
+.sendMessageContainer > div {
+  width: 100%;
+  max-width: var(--max-content-width);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.625rem;
 }
 
-.messageAreaInput:checked {
-    outline: 0;
-    border: none;
+.sendMessageContainer input {
+  height: var(--send-message-section-height);
+  flex-grow: 1;
+  padding: 0;
+  font-size: 0.875rem;
+  padding-inline-start: 1.125rem;
+  line-height: 0.875rem;
+  background-color: var(--inputText-background-color);
+  color: var(--paragraph-color);
+  border: var(--inputText-border-notFocus) solid var(--inputText-boder-color);
+  border-radius: var(--inputText-border-radius);
+  transition: all ease-in-out 0.4s;
+  outline: none;
 }
 
-.messageAreaInput:focus {
-    outline: 0;
-    box-shadow: 0rem 0rem 0.15rem 0rem var(--primary-color);
+.sendMessageContainer input:focus {
+  box-shadow: 0rem 0rem 0.15rem 0rem var(--primary-color);
 }
 
-/*Hijo 2*/
-.sendMessageButton {
-    background-color: var(--primary-color);
-    border-radius: 0.75rem;
-    height: 100%;
-    max-height: 3.375rem;
-    /*width: 8.11%; /*Porcentaje del width del padre */
-    width: 4.125rem;
-    min-width: 4.125rem;
-    max-width: 4.125rem;
-    box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
+.sendMessageContainer button {
+  background-color: var(--primary-color);
+  border-radius: 0.75rem;
+  height: var(--send-message-section-height);
+  width: var(--send-message-section-height);
+  min-width: 4.125rem;
+  max-width: 4.125rem;
+  box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
 }
 
-.icon {
-    font-size: 1.5rem;
-    color: white;
-    vertical-align: middle;
+.sendMessageContainer button .icon {
+  font-size: 1.5rem;
+  color: white;
+  vertical-align: middle;
 }
-
 
 /*LAS DOS LAS NOTIFICACIONES*/
 .notificationContainer {
-    /*Contenedor para las notificaciones*/
-    /*position: relative;*/
-    /*align-self: start;*/
-    /*margin-top: 3rem;*/
-    position: absolute;
-    top: 3rem;
-    z-index: 100;
-    width: 50.875rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    
-    margin-left: 0.5rem;
-    margin-right: 0.5rem;
-    row-gap: 1rem;
-    
+  /*Contenedor para las notificaciones*/
+  /*position: relative;*/
+  /*align-self: start;*/
+  /*margin-top: 3rem;*/
+  position: absolute;
+  top: 3rem;
+  z-index: 100;
+  width: 50.875rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  row-gap: 1rem;
 }
 
 .notificationBox {
-    border-radius: var(--boder-radius-notification-box);
-    width: 54.42%;
-    height: 3.9375rem;
-    flex-wrap: wrap;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  border-radius: var(--boder-radius-notification-box);
+  width: 54.42%;
+  height: 3.9375rem;
+  flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
-
-
 
 /*ELEMENTOS COPIAR LINK PARA EL CHAT*/
 .copyLinkSection {
-    position: absolute;
-    z-index: 20;
-    top: 3%;
-    right: 2%;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    width: 19.61%;
-    min-width: 11.5rem;
-    /*width: 19.0625rem;*/
-    height: 4.375rem;
-    background: var(--copyLinkSection-background);
-    border: var(--copyLinkSection-border);
-    border-radius: var(--copyLinkSection-border-radius);
-    box-shadow: var(--copyLinkSection-box-shadow);
+  position: absolute;
+  z-index: 20;
+  top: 3%;
+  right: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 11rem;
+  height: 3.375rem;
+  background: var(--copyLinkSection-background);
+  border: var(--copyLinkSection-border);
+  border-radius: var(--copyLinkSection-border-radius);
+  box-shadow: var(--copyLinkSection-box-shadow);
 }
 
 .copyLinkButton {
-    background: var(--copyLinkButton-background);
-    border-radius: var(--copyLinkButton-border-radius);
-    height: 2.5rem;
-    width: 2.5rem;
-    min-width: 2.5rem;
-    max-width: 2.5rem;
-    box-shadow: var(--copyLinkButton-box-shadow);
-    margin-left: 5%;
-    text-align: center;
-    padding-block: 0px;
-    padding-inline: 0px;
-    padding: 0.1rem 0.1rem;
+  background: var(--copyLinkButton-background);
+  border-radius: var(--copyLinkButton-border-radius);
+  height: 2.5rem;
+  width: 2.5rem;
+  min-width: 2.5rem;
+  max-width: 2.5rem;
+  box-shadow: var(--copyLinkButton-box-shadow);
+  margin-left: 5%;
+  text-align: center;
+  padding-block: 0px;
+  padding-inline: 0px;
+  padding: 0.1rem 0.1rem;
 }
 
 .copyLinkText {
-    display: block;
-    color: rgba(18, 15, 67, 1);
-    /*font-size: 1.125rem;*/
-    font-size: 1.125em;
-    font-weight: 700;
-    line-height: 1.125rem;
-    text-decoration: none;
-    padding-left: 0.9rem;
-    padding-right: 0.9rem;
-    transition: all ease-in-out 0.2s;
+  width: 7.5rem;
+  display: block;
+  color: rgba(18, 15, 67, 1);
+  font-size: 1.125em;
+  font-weight: 700;
+  line-height: 1.125rem;
+  text-decoration: none;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  transition: all ease-in-out 0.2s;
 }
 
 .iconCopyLink {
-    font-size: 1.2rem;
-    color: white;
-    vertical-align: middle;
+  font-size: 1.2rem;
+  color: white;
+  vertical-align: middle;
 }
-
-
 
 /*AREA PARA MOSTRAS MENSAJES DEL CHAT*/
-.messagesChatContainerAll {
-    position: relative;
-    z-index: 15;
-    /*width: 50.875rem;*/
-    display: grid;
-    grid-template-columns: 50.875rem 20.5rem;
-    align-self: end;
-    max-height: 37rem;
-    margin-bottom: 1.5rem;
-    overflow-x: hidden;
-    overflow-y: auto;
+.messagesChatContainer {
+  width: 100%;
+  flex-grow: 1;
+  height: calc(100% - var(--send-message-section-height));
+  position: relative;
+  z-index: 15;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0.8rem;
 }
 
-.messagesChatContainer1{   
-    position: relative;
-    z-index: 15;
-    width: 50.875rem;
-    display: grid;
-    align-self: end;
-    max-height: 37rem;
-    margin-bottom: 1.5rem;
+.messagesChatContainer::-webkit-scrollbar {
+  width: 12px;
 }
 
-.messagesChatContainer2{
-    min-width: 20.5rem;
-    width: 20.5rem;
-    max-width: 20.5rem;
-    
+.messagesChatContainer::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(1, 181, 116, 0.3);
+  border-radius: 10px;
 }
 
-.messagesChatContainerAll::-webkit-scrollbar {
-    width: 12px;
+.messagesChatContainer::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(117, 203, 210, 0.8);
 }
 
-.messagesChatContainerAll::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(1, 181, 116, 0.3);; 
-    border-radius: 10px;
+.messagesChatContainer > div {
+  width: 100%;
+  max-width: var(--max-content-width);
+  padding: 2rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+
+  gap: 1rem;
 }
 
-.messagesChatContainerAll::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(117, 203, 210, 0.8);
+.messageReceived {
+  align-self: start;
+  max-width: 90%;
+  width: fit-content;
 }
 
-
-
-.meChRe {
-    /*Message Chat Receiber*/
-    justify-self: start;
-    max-width: 42.6875rem;
-    width: fit-content;
-    min-width: 21rem;
-    margin: 0.5rem 1.5rem;
-}
-
-
-.meChSe{
-/*Message Chat Receiber*/
-justify-self: end;
-max-width: 42.6875rem;
-width: fit-content;
-min-width: 10rem;
-margin: 0.5rem 1.5rem;
-
+.messageSent {
+  align-self: end;
+  max-width: 90%;
+  width: fit-content;
 }

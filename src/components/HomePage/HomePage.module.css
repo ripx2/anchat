@@ -1,41 +1,41 @@
 /* Define classes selectors only */
 .root {
-    width: 100vw;
-    height: 100vh;
-    padding: 1rem;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  width: 100vw;
+  height: 100vh;
+  padding: 1rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .startElements {
-    width: fit-content;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }
 
 .createChatText {
-    display: block;
-    color: var(--paragraph-color);
-    font-size: 2rem;
-    font-weight: 500;
-    text-decoration: none;
-    padding-right: 2rem;
-    transition: all ease-in-out 0.2s;
+  display: block;
+  color: var(--paragraph-color);
+  font-size: 2rem;
+  font-weight: 500;
+  text-decoration: none;
+  padding-right: 2rem;
+  transition: all ease-in-out 0.2s;
 }
 
-.startElements:hover .createChatText{
-    letter-spacing: 0.07rem;
-    color: rgb(75, 85, 100);
+.startElements:hover .createChatText {
+  letter-spacing: 0.07rem;
+  color: rgb(75, 85, 100);
 }
 
 .createChatButton {
-    background-color: var(--primary-color);
-    border-radius: 0.75rem;
-    height: 3.375rem;
-    width: 3.8125rem;
-    box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
+  background-color: var(--primary-color);
+  border-radius: 0.75rem;
+  height: 3.375rem;
+  width: 3.8125rem;
+  box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
 }

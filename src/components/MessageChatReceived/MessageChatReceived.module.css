@@ -1,31 +1,32 @@
-.root{
-    min-height: 1rem;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(0deg, rgba(1, 181, 116, 0.2), rgba(1, 181, 116, 0.2)), linear-gradient(0deg, #F2FAFA, #F2FAFA);
-    border: 0.0625rem solid rgba(1, 181, 116, 0.2);
-    box-shadow: 0.4375rem 0.4375rem 1.5625rem 0.125rem rgba(112, 144, 176, 0.2);
-    border-radius: 0.75rem;
+.root {
+  min-height: 1rem;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(
+      0deg,
+      rgba(1, 181, 116, 0.2),
+      rgba(1, 181, 116, 0.2)
+    ),
+    linear-gradient(0deg, #f2fafa, #f2fafa);
+  border: 0.0625rem solid rgba(1, 181, 116, 0.2);
+  box-shadow: 0.4375rem 0.4375rem 1.5625rem 0.125rem rgba(112, 144, 176, 0.2);
+  border-radius: 0.75rem;
+  padding: 0.5rem;
 }
 
-.root p{ /*para todos los paragrap*/
-    font-size: 0.875rem;
-    line-height: 0.875rem;
-    font-weight: 500;
-    margin-inline-start: 1rem;
-    margin-inline-end: 1rem;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
+.root p {
+  /*para todos los paragrap*/
+  font-size: 0.875rem;
+  font-weight: 500;
 }
 
-.root :nth-child(1){ /*Para el nombre*/
-    font-weight: bold;
-    margin-block-start: 0.875rem; /*Se separa 14px desde el borde del contenedor*/
-
+.root :nth-child(1) {
+  /*Para el nombre*/
+  font-weight: bold;
+  padding-bottom: 0.2rem;
 }
 
-.root :nth-child(2){ /*Para el texto del mensaje*/
-    color: rgba(27, 37, 89, 1);
-    margin-block-start: 0.4375rem; /*Se separa 7px desde el nombre (14px + 14px +7px = 35px) */
-    margin-block-end: 0.875rem;
+.root :nth-child(2) {
+  /*Para el texto del mensaje*/
+  color: rgba(27, 37, 89, 1);
 }
