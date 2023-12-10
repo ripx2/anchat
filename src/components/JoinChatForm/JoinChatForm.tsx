@@ -1,16 +1,29 @@
+import { useEffect, useState } from 'react'
 import styles from './JoinChatForm.module.css'
 
-export interface JoinChatFormSubmitData {
+/*export interface JoinChatFormSubmitData {
   name: string
-}
+}*/
 
 export interface JoinChatFormProps {
-  onSubmit?: (data: JoinChatFormSubmitData) => void
+  UserName: (userName: string) => void
 }
 
-export function JoinChatForm(props: JoinChatFormProps) {
-  const onSubmit = () => {
-    props.onSubmit && props.onSubmit({ name: 'name' })
+export function JoinChatForm({UserName}: JoinChatFormProps) {
+ 
+  const [userNickname, setUserNickname] = useState("");
+  const [nickname, setNickname] = useState("");
+  
+  useEffect(() => { 
+    UserName(nickname); 
+    console.log(`2. Desde UseEfect JoinChatForm${nickname}`);
+  }, [nickname]);
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    /*props.onSubmit && props.onSubmit({ name: 'name' });*/
+    event.preventDefault();
+    setNickname(event.currentTarget.elements[0].attributes[6].value);
+    console.log(`1. Desde onSudmit evento click al boton de JoinChatForm${nickname}`)
   }
 
   return (
@@ -30,9 +43,11 @@ export function JoinChatForm(props: JoinChatFormProps) {
           minLength={4}
           className={styles.userNameInput}
           placeholder=" "
+          value={userNickname}
+          onChange={event => setUserNickname(event.target.value)}
           required
         />
-        <button className={styles.submitButton}>Guardar</button>
+        <button type="submit" className={styles.submitButton}>Guardar</button>
         <div className={styles.requirements}>
           Debe tener al menos cuatro caracteres
         </div>

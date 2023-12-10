@@ -7,7 +7,7 @@ import { MessageChatSend } from '../MessageChatSend'
 
 export function ChatPage() {
   const messageLinkCopied = 'Link guardado con el portapapeles'
-  const messageUsedAddedChat = 'Usuario Ricardo Bermudez Ingresado'
+  const messageUserdAddedChat = 'Usuario Ricardo Bermudez Ingresado'
 
   /* PRUEBA PARA MENSAJE RECIBIDO EN EL CHAT*/
   const textMessage: string =
@@ -18,7 +18,6 @@ export function ChatPage() {
   /* PRUEBA PARA MENSAJE ENVIADO EN EL CHAT*/
   const teMeSend: string =
     'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
-
   return (
     <div className={styles.root}>
       <div className={styles.notificationContainer}>
@@ -28,11 +27,11 @@ export function ChatPage() {
         />
       </div>
 
-      <div className={styles.copyLinkSection}>
-        <button className={styles.copyLinkButton}>
+      <div className={styles.copyLinkContainer}>
+        <button>
           <BsClipboardPlus className={styles.iconCopyLink} />
         </button>
-        <a className={styles.copyLinkText} href="#">
+        <a href="#">
           Copiar Link para el chat
         </a>
       </div>
@@ -40,7 +39,7 @@ export function ChatPage() {
       <div className={styles.messagesChatContainer}>
         <div>
           <MessageChatSend
-            textMessage="CARE MODAAAAA"
+            textMessage="probandoooo aqui"
             className={styles.messageSent}
           />
           <MessageChatReceived

@@ -97,7 +97,7 @@
 }
 
 /*ELEMENTOS COPIAR LINK PARA EL CHAT*/
-.copyLinkSection {
+.copyLinkContainer {
   position: absolute;
   z-index: 20;
   top: 3%;
@@ -114,7 +114,7 @@
   box-shadow: var(--copyLinkSection-box-shadow);
 }
 
-.copyLinkButton {
+.copyLinkContainer button {
   background: var(--copyLinkButton-background);
   border-radius: var(--copyLinkButton-border-radius);
   height: 2.5rem;
@@ -129,7 +129,7 @@
   padding: 0.1rem 0.1rem;
 }
 
-.copyLinkText {
+.copyLinkContainer a {
   width: 7.5rem;
   display: block;
   color: rgba(18, 15, 67, 1);
