@@ -1,51 +1,72 @@
 import '@fontsource/plus-jakarta-sans' // Defaults to weight 400
+import { useEffect, useState } from 'react'
+import { Socket } from 'socket.io-client'
 import './App.css'
 import { ChatPage } from './components/ChatPage'
+import { HomePage } from './components/HomePage'
 import { JoinChatPage } from './components/JoinChatPage'
-import { HomePage } from "./components/HomePage";
-import { io } from "socket.io-client";
-import { useState } from 'react';
-
-const socket = io("ws://localhost:5173", { autoConnect: false });
-
+import { NotificationMessage } from './components/NotificationMessage'
 
 function App() {
-  var roomId: string ="";
+  const [roomId, setRoomId] = useState<string | undefined>()
+  const [socket, setSocket] = useState<Socket | undefined>()
+  const [notificationText, setNotificationText] = useState<string | undefined>()
+  const [showNotifications, SetShowNotifications] = useState<boolean | undefined>(undefined)
+  const [nickname, setNickname] = useState('')
+  const [joinedOrCreatedRoom, setJoinedOrCreatedRoom] = useState('')
 
-  /*Para HomePage*/
-  const [roomIdCreate, setRoomIdCreate] = useState(false);/*Cuando se pulse el boton desde HomePage, pasa a verdadero*/
-  
-  /*Para cargar ChatPage */
-  const [nickname, setNickname] = useState("");/*Cuando se crea el nombre dl usuario */
-
-  if (!roomIdCreate) {
-    return <HomePage createRoomChat={setRoomIdCreate} />
-  }
-
-  if (roomIdCreate) {
-    socket.connect();
-    console.log(`Desde la app cuando se crea el id de la room ${nickname}`)
-    return <JoinChatPage userNickname={setNickname} />
-  }
-
-  if(socket.connected && nickname != "" && roomId != ""){
-    return <ChatPage />
-  }
-
-  /********CONEXION AL SOCKET NO ESTOY SEGURO SI SE COLOCA EN LA FUNCION DE LA APP*********/
-  socket.on("connect", () => {
-
-    socket.on("RoomIdCreate", (message) => {/*Desde el servidor se manda el id de la room creada*/
-      console.log(`Se ha creado el chat con codigo ${message.room}`)
-      roomId = message.room;
-    });
-
-    if(roomIdCreate){/*Si se pulso el boton para crear chat, manda el evento "RoomIdCreate" para crear la room del chat con su id*/
-      socket.emit("RoomIdCreate", { room: "" });
+  useEffect(() => {
+    if (!(showNotifications === undefined) || !(notificationText === undefined)) {
+      if (!(notificationText === '')) {
+        SetShowNotifications(true);
+        setTimeout(() => {
+          SetShowNotifications(false);
+          setNotificationText('');
+        }, 4000);
+      }
     }
-  
-  });
+  }, [notificationText])
 
+  return (
+    <>
+      {showNotifications && (
+        <div className="notificationContainer">
+          <NotificationMessage
+            message={notificationText}
+            className="notificationBox"
+          />
+        </div>
+      )}
+
+      {socket && roomId && nickname && (
+        <ChatPage
+          roomId={roomId}
+          nickname={nickname}
+          socket={socket}
+          onNotificationText={(notificationText) => setNotificationText(notificationText)}
+        />
+      )}
+      {socket && roomId && !nickname && (
+        <JoinChatPage
+          onSetNickname={setNickname}
+          onSetNotificationText={setNotificationText}
+          socket={socket}
+          roomId={roomId}
+          joinedOrCreatedRoom ={joinedOrCreatedRoom}
+        />
+      )}
+      {!roomId && (
+        <HomePage
+          onSuccessConnection={(roomId, socket, notificationText, joinedOrCreatedRoom) => {
+            setRoomId(roomId)
+            setSocket(socket)
+            setNotificationText(notificationText)
+            setJoinedOrCreatedRoom(joinedOrCreatedRoom)
+          }}
+        />
+      )}
+    </>
+  )
 }
 
 export default App

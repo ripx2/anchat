@@ -21,6 +21,7 @@
 }
 
 .root :nth-child(1) {
+  text-align: left;
   /*Para el nombre*/
   font-weight: bold;
   padding-bottom: 0.2rem;
@@ -28,5 +29,6 @@
 
 .root :nth-child(2) {
   /*Para el texto del mensaje*/
+  text-align: left;
   color: rgba(27, 37, 89, 1);
 }

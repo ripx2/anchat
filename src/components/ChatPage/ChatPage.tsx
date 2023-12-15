@@ -1,11 +1,86 @@
 import { FiSend } from 'react-icons/fi'
 import { BsClipboardPlus } from 'react-icons/bs'
 import styles from './ChatPage.module.css'
-import { NotificationMessage } from '../NotificationMessage'
 import { MessageChatReceived } from '../MessageChatReceived'
 import { MessageChatSend } from '../MessageChatSend'
+import { Socket } from 'socket.io-client'
+import { useEffect, useState } from 'react'
 
-export function ChatPage() {
+interface ChatPageProps {
+  roomId: string,
+  nickname: string,
+  socket: Socket,
+  onNotificationText: (
+    notificationText: string,
+  ) => void
+}
+
+type chatMessage = {
+  message: string,
+  messageRole: "received" | "sent",
+  nickname?: string,
+  nicknameColor?: string
+}
+
+
+export function ChatPage({ roomId, nickname, socket, onNotificationText }: ChatPageProps) {
+
+  const [allchatMessages, setAllChatMessages] = useState<any[]>([])
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    socket.on("Message", (message) => {
+      console.log(message)
+      let chatMessage: chatMessage = {
+        message: message.message,
+        messageRole: "received",
+        nickname: message.sender,
+        nicknameColor: message.senderColor,
+      };
+      setAllChatMessages(prevState => [...prevState, chatMessage]);
+    });
+
+    return () => {
+      socket.off("Message");
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    socket.on("NotificationRoomJoin", (message) => {
+      onNotificationText(`El usuario ${message.nickname} se ha unido al chat`);
+    });
+    return () => {
+      socket.off("NotificationRoomJoin");
+    };
+  }, [socket])
+
+  const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    let chatMessage: chatMessage = {
+      message: event.currentTarget["toSend"].value,
+      messageRole: "sent",
+      nickname: '',
+      nicknameColor: ''
+    };
+    event.currentTarget["toSend"].value = '';
+    setAllChatMessages(prevState => [...prevState, chatMessage]);
+    socket.emit("Message", { message: chatMessage.message, sender: nickname, room: roomId });
+    /*debugger*/
+  }
+
+  const shareableLink = () => {
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 4000);
+    const url = new URL(window.location.href);
+    navigator.clipboard.writeText(window.location.href)
+    console.log(`roomID obtenido desde el link ${url.searchParams.get("roomId")}`); /*SE DEBE QUITAR */
+    onNotificationText('Link guardado con el portapapeles');
+  }
+
+
+
   const messageLinkCopied = 'Link guardado con el portapapeles'
   const messageUserdAddedChat = 'Usuario Ricardo Bermudez Ingresado'
 
@@ -20,15 +95,9 @@ export function ChatPage() {
     'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.'
   return (
     <div className={styles.root}>
-      <div className={styles.notificationContainer}>
-        <NotificationMessage
-          message={messageLinkCopied}
-          className={styles.notificationBox}
-        />
-      </div>
 
       <div className={styles.copyLinkContainer}>
-        <button>
+        <button disabled={loading} onClick={shareableLink}>
           <BsClipboardPlus className={styles.iconCopyLink} />
         </button>
         <a href="#">
@@ -38,85 +107,22 @@ export function ChatPage() {
 
       <div className={styles.messagesChatContainer}>
         <div>
-          <MessageChatSend
-            textMessage="probandoooo aqui"
-            className={styles.messageSent}
-          />
-          <MessageChatReceived
-            textMessage={textMessage}
-            senderName={senderName}
-            senderNameColor={senderNameColor}
-            className={styles.messageReceived}
-          />
-          <MessageChatSend
-            textMessage={teMeSend}
-            className={styles.messageSent}
-          />
-          <MessageChatReceived
-            textMessage="Mensage abcdefge hijk lmnope rstu vw xyz 12345 chat 2"
-            senderName={senderName}
-            senderNameColor={senderNameColor}
-            className={styles.messageReceived}
-          />
-          <MessageChatReceived
-            textMessage="Mensage 3"
-            senderName={senderName}
-            senderNameColor={senderNameColor}
-            className={styles.messageReceived}
-          />
-          <MessageChatReceived
-            textMessage="Mensage abcdefge hijk lmnope rstu vw xyz 12345 chat chat 4"
-            senderName={senderName}
-            senderNameColor={senderNameColor}
-            className={styles.messageReceived}
-          />
-          <MessageChatSend
-            textMessage="Ojo ahi"
-            className={styles.messageSent}
-          />
-          <MessageChatReceived
-            textMessage="Mensage abcdefge hijk lmnope rstu vw xyz 12345 chat chat 5"
-            senderName={senderName}
-            senderNameColor={senderNameColor}
-            className={styles.messageReceived}
-          />
-          <MessageChatSend
-            textMessage="TE AMOO!!!"
-            className={styles.messageSent}
-          />
-          <MessageChatReceived
-            textMessage="Mensage abcdefge hijk lmnope rstu vw xyz 12345 chat chat 6"
-            senderName={senderName}
-            senderNameColor={senderNameColor}
-            className={styles.messageReceived}
-          />
-          <MessageChatReceived
-            textMessage="Mensage chat 7"
-            senderName={senderName}
-            senderNameColor={senderNameColor}
-            className={styles.messageReceived}
-          />
-          <MessageChatReceived
-            textMessage={textMessage}
-            senderName={senderName}
-            senderNameColor={senderNameColor}
-            className={styles.messageReceived}
-          />
-          <MessageChatSend
-            textMessage={teMeSend}
-            className={styles.messageSent}
-          />
+          {allchatMessages.map((currMess, i) => (
+            currMess.messageRole === "received" ? <MessageChatReceived textMessage={currMess.message}
+              senderName={currMess.nickname} senderNameColor={currMess.nicknameColor} className={styles.messageReceived} />
+              : <MessageChatSend textMessage={currMess.message} className={styles.messageSent} />
+          ))}
         </div>
       </div>
 
-      <div className={styles.sendMessageContainer}>
+      <form onSubmit={onSubmit} className={styles.sendMessageContainer}>
         <div>
-          <input type="text" placeholder="Send a message " required />
-          <button>
+          <input name="toSend" type="text" placeholder="Send a message " required />
+          <button type="submit">
             <FiSend className={styles.icon} />
           </button>
         </div>
-      </div>
+      </form>
     </div>
   )
 }

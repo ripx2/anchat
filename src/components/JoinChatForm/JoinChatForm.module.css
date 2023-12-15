@@ -61,13 +61,14 @@ p {
   background-color: var(--primary-color);
   color: var(--primary-color-contrast);
   font-size: 1.05rem;
-  transition: 0.4s;
+  transition: all 0.4s ease-in-out;
   margin-left: 0.2rem;
 }
 
 .submitButton:hover {
-  font-weight: bold;
-  font-size: 1.08rem;
+  transform: translateY(-0.15em);
+  border-color: var(--primary-color);
+  box-shadow: 0rem 0rem 0.08rem 0.1rem var(--primary-color);
 }
 
 /*Estilo de la entrada tipo texto y validacion de datos para esa entrada*/
