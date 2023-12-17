@@ -29,7 +29,7 @@ function App() {
 
   return (
     <>
-      {showNotifications && (
+      {showNotifications && notificationText && (
         <div className="notificationContainer">
           <NotificationMessage
             message={notificationText}

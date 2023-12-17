@@ -56,7 +56,7 @@ export function HomePage({ onSuccessConnection }: HomePageProps) {
     setTimeout(() => {
       setLoading(false);
     }, 4000);
-    const socket = io('http://localhost:3000', { autoConnect: false });
+    const socket = io(process.env.SOCKET_URL!, { autoConnect: false });
     socket.connect();
     socket.on('connect', () => {
       let notificationText: string;
