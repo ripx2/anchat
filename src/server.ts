@@ -1,109 +1,172 @@
-import { createServer } from "http"
-import { Server } from "socket.io";
+import { createServer } from 'http'
+import { Server } from 'socket.io'
+import short from 'short-uuid'
 
-const short = require('short-uuid');
-
-let roomsIdsAvailables = [];
-var temporaryId: string;
-
-const colorArray = ['#FF6633', '#FFB399', '#FF33FF', '#FFFF99', '#00B3E6',
-  '#E6B333', '#3366E6', '#999966', '#99FF99', '#B34D4D',
-  '#80B300', '#809900', '#E6B3B3', '#6680B3', '#66991A',
-  '#FF99E6', '#CCFF1A', '#FF1A66', '#E6331A', '#33FFCC',
-  '#66994D', '#B366CC', '#4D8000', '#B33300', '#CC80CC',
-  '#66664D', '#991AFF', '#E666FF', '#4DB3FF', '#1AB399',
-  '#E666B3', '#33991A', '#CC9999', '#B3B31A', '#00E680',
-  '#4D8066', '#809980', '#E6FF80', '#1AFF33', '#999933',
-  '#FF3380', '#CCCC00', '#66E64D', '#4D80CC', '#9900B3',
-  '#E64D66', '#4DB380', '#FF4D4D', '#99E6E6', '#6666FF'];
-
-type forColor = {
-  nicknameColorsAssigned: string[],
-  volatileNicknameColor: string,
-}
-
-const settingColor = (nicknameColorsAssigned: string[], colorArray: string[]): forColor => {
-  let volatileNicknameColor = colorArray[Math.floor(Math.random() * 50)];
-  if (nicknameColorsAssigned.includes(volatileNicknameColor)) {
-    volatileNicknameColor = colorArray[Math.floor(Math.random() * 50)];
-    while (true) {
-      if (nicknameColorsAssigned.includes(volatileNicknameColor)) {
-        continue;
-      }
-      else {
-        break;
-      }
-    }
-  }
-  nicknameColorsAssigned.length == 0 ? nicknameColorsAssigned[0] = volatileNicknameColor : nicknameColorsAssigned.push(volatileNicknameColor);
-  return {
-    nicknameColorsAssigned: nicknameColorsAssigned,
-    volatileNicknameColor: volatileNicknameColor
-  };
-};
-
-const httpServer = createServer();
+const httpServer = createServer()
 const io = new Server(httpServer, {
   cors: {
-    origin: "*"
+    origin: '*',
+  },
+})
+
+type UserRegister = {
+  senderColor: string
+  isConnected: boolean
+}
+type RoomRegister = Map<string, UserRegister>
+type MainChatRegister = Map<string, RoomRegister>
+
+/*  
+  Cada roomId es una key, en la que se almacenan los paticipantes 
+  del room (ninkname)  y el color para cada un
+*/
+const mainChatRegister: MainChatRegister = new Map()
+
+const colorArray = [
+  '#FF6633',
+  '#FFB399',
+  '#FF33FF',
+  '#FFFF99',
+  '#00B3E6',
+  '#E6B333',
+  '#3366E6',
+  '#999966',
+  '#99FF99',
+  '#B34D4D',
+  '#80B300',
+  '#809900',
+  '#E6B3B3',
+  '#6680B3',
+  '#66991A',
+  '#FF99E6',
+  '#CCFF1A',
+  '#FF1A66',
+  '#E6331A',
+  '#33FFCC',
+  '#66994D',
+  '#B366CC',
+  '#4D8000',
+  '#B33300',
+  '#CC80CC',
+  '#66664D',
+  '#991AFF',
+  '#E666FF',
+  '#4DB3FF',
+  '#1AB399',
+  '#E666B3',
+  '#33991A',
+  '#CC9999',
+  '#B3B31A',
+  '#00E680',
+  '#4D8066',
+  '#809980',
+  '#E6FF80',
+  '#1AFF33',
+  '#999933',
+  '#FF3380',
+  '#CCCC00',
+  '#66E64D',
+  '#4D80CC',
+  '#9900B3',
+  '#E64D66',
+  '#4DB380',
+  '#FF4D4D',
+  '#99E6E6',
+  '#6666FF',
+]
+
+const getUserSenderColor = (
+  roomsRegister: MainChatRegister,
+  room: string,
+  nickname: string,
+) => {
+  let roomRegister = roomsRegister.get(room)
+  if (!roomRegister) return null
+  let userRegister = roomRegister.get(nickname)
+  if (!userRegister) return null
+  return userRegister.senderColor
+}
+
+const getRoomAssignedColors = (roomsRegister: MainChatRegister, room: string) => {
+  let roomRegister = roomsRegister.get(room)
+  if (!roomRegister) return []
+  const assignedColors: string[] = []
+  for (let nickname of roomRegister.keys()) {
+    assignedColors.push(roomRegister.get(nickname)!.senderColor)
   }
-});
+  return assignedColors
+}
 
+const getAvailableColor = (assignedColors: string[], allColors: string[]) => {
+  const indexedAssignedColors = new Set(assignedColors)
+  const availableColors = allColors.filter(
+    (color) => !indexedAssignedColors.has(color),
+  )
+  const randomIndex = Math.floor(Math.random() * availableColors.length)
+  return availableColors[randomIndex]
+}
 
-
-let roomsIdsMap = new Map<string, Map<string, {senderColor:string, isConnected:boolean}>>();/*Cada roomId es una key, en la que se almacenan los paticipantes del room (ninkname)  y el color para cada un*/
-
-
-
-io.on("connection", (socket) => {
-
-  socket.on("RoomIdJoin", (message) => {
-    socket.join(message.room);
-    socket.emit("RoomIdJoin", { message: "Te haz unido al Chat. Registra tu nombre para continuar" })
+io.on('connection', (socket) => {
+  socket.on('RoomIdJoin', (message) => {
+    socket.join(message.room)
+    socket.emit('RoomIdJoin', {
+      message: 'Te haz unido al Chat. Registra tu nombre para continuar',
+    })
   })
 
-  socket.on("NotificationRoomJoin", (message) => {
-    var settedColor: forColor = { nicknameColorsAssigned: [], volatileNicknameColor: '' };
-    settedColor = settingColor(settedColor.nicknameColorsAssigned, colorArray);
+  socket.on('NotificationRoomJoin', (message) => {
+    const assignedColors = getRoomAssignedColors(mainChatRegister, message.room)
+    const senderColor = getAvailableColor(assignedColors, colorArray)
 
-    if (roomsIdsMap.has(message.room)){
-      let chatMemberMap = roomsIdsMap.get(message.room)
-      roomsIdsMap.set(message.room, chatMemberMap.set(message.nickname, {senderColor:settedColor.volatileNicknameColor, isConnected:true}));
+    let roomRegister = mainChatRegister.get(message.room)
+    if (!roomRegister) {
+      roomRegister = new Map()
+      mainChatRegister.set(message.room, roomRegister)
     }
-    else{
-      let chatMemberMap = new Map<string, {senderColor:string, isConnected:boolean}>();
-      roomsIdsMap.set(message.room, chatMemberMap.set(message.nickname, {senderColor:settedColor.volatileNicknameColor, isConnected:true}));
-    }
-    
-    console.log(roomsIdsMap)
-    socket.emit("NotificationRoomJoinOk", { message: "Bienvenido al chat" })/*Para el que se acaba de unir */
-    socket.to(message.room).emit("NotificationRoomJoin", { nickname: message.nickname }); /*Para los que ya estan -- se escucha en ChatPage */
-    console.log(`Cliente ${message.nickname} unido al grupo: ${message.room.toString().trim()}`); /*QUITARLOOOOO */
+
+    roomRegister.set(message.nickname, {
+      senderColor: senderColor,
+      isConnected: true,
+    })
+
+    console.log(mainChatRegister)
+    socket.emit('NotificationRoomJoinOk', {
+      message: 'Bienvenido al chat',
+    }) /*Para el que se acaba de unir */
+    socket.to(message.room).emit('NotificationRoomJoin', {
+      nickname: message.nickname,
+    }) /*Para los que ya estan -- se escucha en ChatPage */
   })
 
-  socket.on("RoomIdCreate", (message) => {
-    temporaryId = short.generate();
-    socket.join(temporaryId);
-    socket.emit("RoomIdCreate", { message: "Se ha creado la sala, registra tu nombre para continuar", room: temporaryId });
-    if (roomsIdsAvailables.length == 0)
-      roomsIdsAvailables[0] = temporaryId;
-    else
-      roomsIdsAvailables.push(temporaryId);
+  socket.on('RoomIdCreate', () => {
+    const room = short.generate()
+    socket.join(room)
+    socket.emit('RoomIdCreate', {
+      message: 'Se ha creado la sala, registra tu nombre para continuar',
+      room: room,
+    })
   })
 
-  socket.on("Message", (message) => {
+  socket.on('Message', (message) => {
     if (message.message == null) {
-      console.log(`Cliente conectado: ${message.sender} al grupo:` + ` ${message.room}`);
+      return console.log(
+        `Cliente conectado: ${message.sender} al grupo:` + ` ${message.room}`,
+      )
     }
-    else {
-      let listChatMembers = roomsIdsMap.get(message.room);
-      let nickname = listChatMembers.get(message.sender);
-      let nicknameColor = nickname.senderColor;
-      socket.to(message.room).emit("Message", { message: message.message, room: message.room, sender: message.sender, senderColor: nicknameColor });
-      console.log(message);
-    }
-  });
-});
+    let nicknameColor = getUserSenderColor(
+      mainChatRegister,
+      message.room,
+      message.sender,
+    )
+    if (!nicknameColor) return
+    socket.to(message.room).emit('Message', {
+      message: message.message,
+      room: message.room,
+      sender: message.sender,
+      senderColor: nicknameColor,
+    })
+  })
+})
 
-io.listen(3000);
-console.log("Server Running");
+io.listen(3000)
+console.log('Server Running')
