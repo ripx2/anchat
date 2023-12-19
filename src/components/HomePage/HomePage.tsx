@@ -44,7 +44,7 @@ export function HomePage({ onSuccessConnection }: HomePageProps) {
       connectToServer();
   }, [urlRoomId]);
 
-  const notifyConnection = (roomId: string, socket: Socket, notificationText: string, joinedOrCreatedRoom:string) => {
+  const notifyConnection = (roomId: string, socket: Socket, notificationText: string, joinedOrCreatedRoom: string) => {
     const url = new URL(window.location.href)
     url.searchParams.set('roomId', roomId)
     history.pushState({}, '', url)
@@ -56,15 +56,16 @@ export function HomePage({ onSuccessConnection }: HomePageProps) {
     setTimeout(() => {
       setLoading(false);
     }, 4000);
-    const socket = io(process.env.SOCKET_URL!, { autoConnect: false });
+    const socket = io("http://localhost:3000", { autoConnect: false });
     socket.connect();
     socket.on('connect', () => {
       let notificationText: string;
-      let joinedOrCreatedRoom:string;
+      let joinedOrCreatedRoom: string;
       if (urlRoomId) { /*Si se unio a un room */
         socket.emit("RoomIdJoin", { room: urlRoomId, nickname: null });
         socket.on("RoomIdJoin", (message) => {
-          notificationText = message.message;
+          if (!sessionStorage.getItem("nickname"))
+            notificationText = message.message;
           joinedOrCreatedRoom = "joinedToRoom";
           return notifyConnection(urlRoomId, socket, notificationText, joinedOrCreatedRoom);
         });

@@ -26,12 +26,29 @@ export function ChatPage({
   socket,
   onNotificationText,
 }: ChatPageProps) {
-  const [allchatMessages, setAllChatMessages] = useState<any[]>([])
+
+  const [allChatMessages, setAllChatMessages] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+
+  sessionStorage.setItem("nickname", nickname)
+
+
+  useEffect(() => {
+    if (allChatMessages.length == 0) { /* Se renderizo e inicializo el estado para todos los mensajes en vacio*/
+      if (sessionStorage.getItem("allChatMessages")) { /*pregunta si hay algo guardado en sessionStorage */
+        const auxMessages = JSON.parse(sessionStorage.getItem("allChatMessages")!)
+        setAllChatMessages(auxMessages)
+        console.log(`Se refresco la pagina y se recuperaron los siguientes mensajes ${auxMessages}`)
+      }
+      return
+    }
+    sessionStorage.setItem("allChatMessages", JSON.stringify(allChatMessages))
+    console.log(sessionStorage.getItem("allChatMessages")); /*QUITAAAAAAARRRRRRR */
+  }, [allChatMessages])
+
 
   useEffect(() => {
     socket.on('Message', (message) => {
-      console.log(message)
       let chatMessage: chatMessage = {
         message: message.message,
         messageRole: 'received',
@@ -40,7 +57,7 @@ export function ChatPage({
       }
       setAllChatMessages((prevState) => [...prevState, chatMessage])
     })
-
+    console.log(allChatMessages);
     return () => {
       socket.off('Message')
     }
@@ -80,9 +97,7 @@ export function ChatPage({
     }, 4000)
     const url = new URL(window.location.href)
     navigator.clipboard.writeText(window.location.href)
-    console.log(
-      `roomID obtenido desde el link ${url.searchParams.get('roomId')}`,
-    ) /*SE DEBE QUITAR */
+    console.log(`roomID obtenido desde el link ${url.searchParams.get('roomId')}`) /*SE DEBE QUITAR */
     onNotificationText('Link guardado con el portapapeles')
   }
 
@@ -97,7 +112,7 @@ export function ChatPage({
 
       <div className={styles.messagesChatContainer}>
         <div>
-          {allchatMessages.map((currMess, i) =>
+          {allChatMessages.map((currMess, i) =>
             currMess.messageRole === 'received' ? (
               <MessageChatReceived
                 key={i}
