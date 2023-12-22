@@ -59,13 +59,20 @@ button {
   --primary-color-contrast: #ffffff;
 }
 
+
+
+
 .notificationContainer {
   /*Contenedor para las notificaciones*/
   position: absolute;
   top: 3rem;
-  right: calc(50% - 25.4375rem);
+  max-width: 90%;
+  /*left: 50%;
+  transform: translateX(-50%);*/
+  left: 0;
+  right: 0;
+  margin: auto;
   z-index: 100;
-  width: 50.875rem;
   display: flex;
   flex-direction: column;
   justify-content: center;

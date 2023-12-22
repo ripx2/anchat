@@ -18,7 +18,7 @@ export function JoinChatForm({ onSetNickname, onSetNotificationText, socket, roo
   con la finalidad de averiguar si hay algun nickname en sessionStorage */
   const [nicknameFromChatPage, setNicknameFromChatPage] = useState(true)
 
-  /*Se ejecuta al renderizar el componente
+  /*Se ejecuta al renderizar el componente.
   Si hay algun nickname almacenado en sessionStorage 
   lo retorna con la funcion onsetNickname, en caso que 
   no haya ningun nickname en sessionStorage (quiere decir 
@@ -45,7 +45,6 @@ export function JoinChatForm({ onSetNickname, onSetNotificationText, socket, roo
         /*En un else se le podria agregar una notificacion para
         aquellos entran al chat despues de haber creado el room */
       }
-
     });
 
   }
