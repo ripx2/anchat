@@ -5,6 +5,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  background: var(--primary-color-contrast);
+  transition: background ease-in var(--time-bg-change);
 }
 
 .card {

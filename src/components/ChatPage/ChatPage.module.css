@@ -1,6 +1,6 @@
 .root {
   width: 100%;
-  height: 100vh;
+  height: 100dvh;
   padding: 0rem;
   margin: 0;
   display: flex;
@@ -9,7 +9,6 @@
   flex-direction: column;
   --max-content-width: 50rem;
   --send-message-section-height: 3.375rem;
-  --copyLinkSection-background: #ffffff;
 }
 
 .sendMessageContainer {
@@ -41,7 +40,8 @@
   color: var(--paragraph-color);
   border: var(--inputText-border-notFocus) solid var(--inputText-boder-color);
   border-radius: var(--inputText-border-radius);
-  transition: all ease-in-out 0.4s;
+  background: var(--primary-color-contrast);
+  transition: background ease-in var(--time-bg-change), box-shadow ease-in-out 0.4s, border-color ease-in-out 0.4s;
   outline: none;
 }
 
@@ -58,6 +58,13 @@
   min-width: 4.125rem;
   max-width: 4.125rem;
   box-shadow: 0rem 1.3125rem 1.6875rem -0.625rem rgba(67, 200, 192, 0.47);
+  transition: all 0.2s ease-in-out;
+}
+
+.sendMessageContainer button:hover {
+  transform: translateY(-0.15em);
+  border-color: rgba(67, 200, 192, 0.47);
+  box-shadow: 0rem 0rem 0.08rem 0.1rem rgba(67, 200, 192, 0.47);
 }
 
 .sendMessageContainer button .icon {
@@ -66,94 +73,51 @@
   vertical-align: middle;
 }
 
-
-/*
-.notificationContainer {
-  /*Contenedor para las notificaciones
-  position: absolute;
-  top: 3rem;
-  z-index: 100;
-  width: 50.875rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  row-gap: 1rem;
-}
-
-.notificationBox {
-  border-radius: var(--boder-radius-notification-box);
-  width: 54.42%;
-  height: 3.9375rem;
-  flex-wrap: wrap;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-*/
-
-
 /*ELEMENTOS COPIAR LINK PARA EL CHAT*/
 .copyLinkContainer {
   position: absolute;
   z-index: 20;
-  top: 3%;
-  right: 1rem;
+  top: 0;
+  right: 1.5rem;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: end;
   align-items: center;
-  width: 11rem;
-  height: 3.375rem;
-  background: var(--copyLinkSection-background);
-  border: var(--copyLinkSection-border);
-  border-radius: var(--copyLinkSection-border-radius);
-  box-shadow: var(--copyLinkSection-box-shadow);
-  transition: all ease-in-out 0.2s;
-}
-
-.copyLinkContainer:hover {
-  border-color: var(--primary-color);
-  box-shadow: 0rem 0rem 0.08rem 0.1rem var(--primary-color);
-  transform: translateY(-0.15em);
+  gap: 1rem;
+  width: 50%;
+  height: 3rem;
+  border-radius: 0;
 }
 
 .copyLinkContainer button {
-  background: var(--copyLinkButton-background);
+  background: var(--copyLinkSection-background);
   border-radius: var(--copyLinkButton-border-radius);
+  box-shadow: none;
   height: 2.5rem;
   width: 2.5rem;
   min-width: 2.5rem;
   max-width: 2.5rem;
-  box-shadow: var(--copyLinkButton-box-shadow);
-  margin-left: 5%;
   text-align: center;
   padding-block: 0px;
   padding-inline: 0px;
-  padding: 0.1rem 0.1rem;
+  padding: 0.1rem;
+  transition: background ease-in var(--time-bg-change);
 }
 
-.copyLinkContainer a {
-  width: 7.5rem;
-  display: block;
-  color: rgba(18, 15, 67, 1);
-  font-size: 1.125em;
-  font-weight: 700;
-  line-height: 1.125rem;
-  text-decoration: none;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-  transition: all ease-in-out 0.2s;
-}
-
-.iconCopyLink {
-  font-size: 1.2rem;
-  color: white;
+.copyLinkContainer button .iconCopyLink {
+  font-size: 1.5rem;
+  color: var(--primary-color);
   vertical-align: middle;
+  transition: ease;
+  transition: filter 0.1s;
+}
+
+.copyLinkContainer button .iconCopyLink:hover {
+  filter: drop-shadow(0.1rem 0.1rem 0.2rem var(--primary-color));
+}
+
+.copyLinkContainer button:hover:active .iconCopyLink {
+  filter: drop-shadow(0 0 2px var(--primary-color)) drop-shadow(0 0 5px var(--primary-color)) drop-shadow(0 0 15px var(--primary-color));
 }
 
 /*AREA PARA MOSTRAS MENSAJES DEL CHAT*/
@@ -191,7 +155,6 @@
   display: flex;
   flex-direction: column;
   justify-content: end;
-
   gap: 1rem;
 }
 

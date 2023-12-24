@@ -3,6 +3,7 @@ import { Socket, io } from 'socket.io-client'
 import styles from './HomePage.module.css'
 import { useEffect, useMemo, useState } from 'react'
 
+
 interface HomePageProps {
   onSuccessConnection: (
     roomId: string,
@@ -56,7 +57,7 @@ export function HomePage({ onSuccessConnection }: HomePageProps) {
     setTimeout(() => {
       setLoading(false);
     }, 4000);
-    const socket = io("http://localhost:3000", { autoConnect: false });
+    const socket = io(import.meta.env.VITE_SOCKET_URL, { autoConnect: false });
     socket.connect();
     socket.on('connect', () => {
       let notificationText: string;

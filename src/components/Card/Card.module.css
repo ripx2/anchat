@@ -1,4 +1,6 @@
 .root {
   box-shadow: var(--card-box-shadow);
   border-radius: var(--card-border-radius);
+  background: var(--primary-color-contrast);
+  transition: background ease-in var(--time-bg-change), box-shadow ease-in var(--time-bg-change);
 }

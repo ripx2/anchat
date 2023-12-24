@@ -1,10 +1,10 @@
 import { FiSend } from 'react-icons/fi'
-import { BsClipboardPlus } from 'react-icons/bs'
+import { FaShareAlt } from "react-icons/fa";
 import styles from './ChatPage.module.css'
 import { MessageChatReceived } from '../MessageChatReceived'
 import { MessageChatSend } from '../MessageChatSend'
 import { Socket } from 'socket.io-client'
-import { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react' 
 
 interface ChatPageProps {
   roomId: string
@@ -102,15 +102,13 @@ export function ChatPage({
   }
 
   return (
-    
+    <div className={styles.root}  >
 
-    <div className={styles.root}>
-      <div className={styles.copyLinkContainer}>
+      <header className={styles.copyLinkContainer}>
         <button disabled={loading} onClick={shareableLink}>
-          <BsClipboardPlus className={styles.iconCopyLink} />
+          <FaShareAlt className={styles.iconCopyLink} />
         </button>
-        <a href="#">Copiar Link para el chat</a>
-      </div>
+      </header>
 
       <div className={styles.messagesChatContainer}>
         <div>

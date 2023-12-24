@@ -30,6 +30,7 @@ p {
   margin-inline-end: 0rem;
   font-weight: 700;
   text-align: center;
+  transition: color ease-in var(--time-bg-change)
 }
 
 .paragraphInfoSection .infP1 {
@@ -39,6 +40,8 @@ p {
   margin-block-end: 0.01rem;
   margin-inline-start: 0px;
   margin-inline-end: 0px;
+  color: var(--paragraph-color);
+  transition: color ease-in var(--time-bg-change)
 }
 
 .inputsSection {
@@ -61,14 +64,14 @@ p {
   background-color: var(--primary-color);
   color: var(--primary-color-contrast);
   font-size: 1.05rem;
-  transition: all 0.4s ease-in-out;
+  transition: all 0.2s ease-in-out;
   margin-left: 0.2rem;
 }
 
 .submitButton:hover {
   transform: translateY(-0.15em);
-  border-color: var(--primary-color);
-  box-shadow: 0rem 0rem 0.08rem 0.1rem var(--primary-color);
+  border-color: rgba(67, 200, 192, 0.47);
+  box-shadow: 0rem 0rem 0.08rem 0.1rem rgba(67, 200, 192, 0.47);
 }
 
 /*Estilo de la entrada tipo texto y validacion de datos para esa entrada*/
@@ -85,8 +88,8 @@ p {
   color: var(--paragraph-color);
   font-size: var(--paragraph-font-size);
   margin-right: 0.2rem;
-  transition: border-color 0.5s ease-in-out;
-  transition: box-shadow 0.5s ease-in-out;
+  background: var(--primary-color-contrast);
+  transition: border-color 0.5s ease-in-out, box-shadow 0.5s ease-in-out, background ease-in var(--time-bg-change);
 }
 
 .userNameInput:focus {
@@ -102,11 +105,11 @@ p {
 
 .userNameInput:invalid:focus:not(:placeholder-shown) {
   border-color: rgb(240, 49, 49);
-  background-color: rgb(255, 106, 106, 0.05);
+  background: rgba(85, 1, 1, 0.2);
 }
 
 .userNameInput:invalid:focus:not(:placeholder-shown) {
-  & ~ .requirements {
+  &~.requirements {
     max-height: 3.1rem;
     padding: 0 0 0 0;
   }

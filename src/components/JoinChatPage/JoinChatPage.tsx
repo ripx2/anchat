@@ -13,7 +13,6 @@ interface JoinChatPageProps {
 }
 
 export function JoinChatPage({ onSetNickname, onSetNotificationText, socket, roomId, joinedOrCreatedRoom }: JoinChatPageProps) {
-
   return (
     <div className={styles.root}>
       <Card className={styles.card}>
