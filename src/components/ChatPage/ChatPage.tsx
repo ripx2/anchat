@@ -4,7 +4,7 @@ import styles from './ChatPage.module.css'
 import { MessageChatReceived } from '../MessageChatReceived'
 import { MessageChatSend } from '../MessageChatSend'
 import { Socket } from 'socket.io-client'
-import { useEffect, useState } from 'react' 
+import { useEffect, useState } from 'react'
 
 interface ChatPageProps {
   roomId: string
@@ -87,17 +87,15 @@ export function ChatPage({
       sender: nickname,
       room: roomId,
     })
-    /*debugger*/
   }
 
   const shareableLink = () => {
     setLoading(true)
     setTimeout(() => {
       setLoading(false)
-    }, 4000)
-    const url = new URL(window.location.href)
-    navigator.clipboard.writeText(window.location.href)
-    console.log(`roomID obtenido desde el link ${url.searchParams.get('roomId')}`) /*SE DEBE QUITAR */
+    }, 1000)
+    const urlGetted = window.location.href
+    navigator.clipboard.writeText(urlGetted)
     onNotificationText('Link guardado con el portapapeles')
   }
 

@@ -127,5 +127,5 @@ io.on('connection', (socket) => {
   })
 })
 
-io.listen(3000)
+httpServer.listen(3000, "0.0.0.0")
 console.log('Server Running')

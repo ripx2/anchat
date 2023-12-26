@@ -17,7 +17,7 @@ function App() {
   const [showNotifications, SetShowNotifications] = useState<boolean | undefined>(undefined)
   const [nickname, setNickname] = useState('')
   const [joinedOrCreatedRoom, setJoinedOrCreatedRoom] = useState('')
-  const [darkTheme, setDarkTheme] = useState(false);
+  const [darkTheme, setDarkTheme] = useState<boolean | undefined>();
   const [loading, setLoading] = useState(false);/*Deshabilitar 2s boton cambio de tema */
 
   useEffect(() => {
@@ -37,7 +37,8 @@ function App() {
     if (darkTheme === undefined) {
       if (sessionStorage.getItem("lastTheme")) {
         const lastTheme = sessionStorage.getItem("lastTheme")
-        lastTheme === "dark" ? setDarkTheme("dark") : setDarkTheme("dark")
+        lastTheme === "dark" ? setDarkTheme(true) : setDarkTheme(false)
+        console.log(`Desde la actualizacion de la pagina ${lastTheme}` )
       }
       return
     }
@@ -62,7 +63,6 @@ function App() {
             id='darkmode-toggle'
             onChange={handleTheme}
             disabled={loading}
-
           />
           <label className="dark_mode_label" htmlFor='darkmode-toggle'>
             <MdWbSunny className="sun" />

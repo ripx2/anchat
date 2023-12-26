@@ -26,13 +26,16 @@
   font-weight: 500;
   text-decoration: none;
   padding-right: 2rem;
+  cursor: pointer;
   transition: all ease-in-out 0.2s;
+
 }
 
 .startElements:hover .createChatText {
   letter-spacing: 0.07rem;
   color: rgb(75, 85, 100);
 }
+
 
 .createChatButton {
   background-color: var(--primary-color);

@@ -136,6 +136,7 @@ p {
   height: 2rem;
   position: relative;
   margin-top: 0;
+  cursor: pointer;
 }
 
 .randomName a {

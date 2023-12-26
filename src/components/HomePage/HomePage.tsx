@@ -56,7 +56,7 @@ export function HomePage({ onSuccessConnection }: HomePageProps) {
     setLoading(true);
     setTimeout(() => {
       setLoading(false);
-    }, 4000);
+    }, 1000);
     const socket = io(import.meta.env.VITE_SOCKET_URL, { autoConnect: false });
     socket.connect();
     socket.on('connect', () => {
@@ -87,7 +87,7 @@ export function HomePage({ onSuccessConnection }: HomePageProps) {
     <div className={styles.root}>
       {!urlRoomId && (
         <div className={styles.startElements}>
-          <a className={styles.createChatText} href="#">
+          <a className={styles.createChatText} onClick={connectToServer}>
             Crea un chat para empezar
           </a>
           <button disabled={loading} onClick={connectToServer} className={styles.createChatButton}>
