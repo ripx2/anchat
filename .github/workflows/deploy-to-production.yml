@@ -31,13 +31,6 @@ jobs:
         host: anchat.yuca.codes
         username: deployer
         key: ${{ secrets.DEPLOYER_USER_KEY }}
-        script: |
-          docker run -d --restart=unless-stopped \
-          -e VIRTUAL_HOST=server.anchat.yuca.codes \
-          -e LETSENCRYPT_HOST=server.anchat.yuca.codes \ 
-          yucacodes/anchat-server:${{ github.sha }}
-          CONTAINERS_TO_STOP=$(docker ps --format '{{.ID}} {{.Image}}' | grep yucacodes/anchat-server | grep -v ${{ github.sha }} | awk '{ print $1 }')
-          for C in $CONTAINERS_TO_STOP; do docker kill $C; done;
-          for C in $CONTAINERS_TO_STOP; do docker rm $C; done;
+        script: docker run -d --restart=unless-stopped -e VIRTUAL_HOST=server.anchat.yuca.codes -e LETSENCRYPT_HOST=server.anchat.yuca.codes yucacodes/anchat-server:${{ github.sha }}
    
         
