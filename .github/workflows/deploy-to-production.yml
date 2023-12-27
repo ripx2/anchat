@@ -40,3 +40,4 @@ jobs:
           CONTAINERS_TO_STOP=$(docker ps --format '{{.ID}} {{.Image}}' | grep yucacodes/anchat-front | grep -v ${{ github.sha }} | awk '{ print $1 }')
           for C in $CONTAINERS_TO_STOP; do docker kill $C; done;
           for C in $CONTAINERS_TO_STOP; do docker rm $C; done;
+          docker image prune --all
