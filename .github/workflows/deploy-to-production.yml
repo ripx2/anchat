@@ -11,10 +11,16 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-    - name: Build and push Docker images
+    - name: Build and push Front Docker image
       uses: docker/build-push-action@v5.1.0
       with:
-        tags: yucacodes/anchat-front:0.0.1
+        tags: yucacodes/anchat-front:${{ github.sha }}
         push: true
         target: front
+    - name: Build and push Server Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        tags: yucacodes/anchat-server:${{ github.sha }}
+        push: true
+        target: server
         
