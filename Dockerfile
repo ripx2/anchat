@@ -13,6 +13,12 @@ COPY bun.lockb .
 RUN bun install
 COPY . /app
 WORKDIR app
+
+# Require build args
+ARG VITE_SOCKET_URL
+RUN test -n "$VITE_SOCKET_URL"
+ENV VITE_SOCKET_URL $VITE_SOCKET_URL
+
 # Build front
 RUN bun run build
 # Build server
