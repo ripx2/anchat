@@ -17,10 +17,12 @@ jobs:
         tags: yucacodes/anchat-front:${{ github.sha }}
         push: true
         target: front
+        build-args: VITE_SOCKET_URL=server.anchat.yuca.codes
     - name: Build and push Server Docker image
       uses: docker/build-push-action@v5.1.0
       with:
         tags: yucacodes/anchat-server:${{ github.sha }}
         push: true
         target: server
+        build-args: VITE_SOCKET_URL=server.anchat.yuca.codes
         
