@@ -25,10 +25,7 @@ jobs:
         push: true
         target: server
         build-args: VITE_SOCKET_URL=server.anchat.yuca.codes
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: SSH Remote Commands
+    - name: Deploy
       uses: appleboy/ssh-action@v1.0.1
       with:
         host: anchat.yuca.codes
@@ -36,12 +33,11 @@ jobs:
         key: ${{ secrets.DEPLOYER_USER_KEY }}
         script: |
           docker run -d --restart=unless-stopped \
-          -e VIRTUAL_HOST=$DOMAIN \
-          -e LETSENCRYPT_HOST=$DOMAIN \ 
+          -e VIRTUAL_HOST=server.anchat.yuca.codes \
+          -e LETSENCRYPT_HOST=server.anchat.yuca.codes \ 
           yucacodes/anchat-server:${{ github.sha }}
           CONTAINERS_TO_STOP=$(docker ps --format '{{.ID}} {{.Image}}' | grep yucacodes/anchat-server | grep -v ${{ github.sha }} | awk '{ print $1 }')
           for C in $CONTAINERS_TO_STOP; do docker kill $C; done;
           for C in $CONTAINERS_TO_STOP; do docker rm $C; done;
-          
    
         
