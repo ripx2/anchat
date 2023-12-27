@@ -36,3 +36,7 @@ jobs:
           CONTAINERS_TO_STOP=$(docker ps --format '{{.ID}} {{.Image}}' | grep yucacodes/anchat-server | grep -v ${{ github.sha }} | awk '{ print $1 }')
           for C in $CONTAINERS_TO_STOP; do docker kill $C; done;
           for C in $CONTAINERS_TO_STOP; do docker rm $C; done;
+          docker run -d --restart=unless-stopped -e VIRTUAL_HOST=anchat.yuca.codes -e LETSENCRYPT_HOST=anchat.yuca.codes yucacodes/anchat-front:${{ github.sha }}
+          CONTAINERS_TO_STOP=$(docker ps --format '{{.ID}} {{.Image}}' | grep yucacodes/anchat-front | grep -v ${{ github.sha }} | awk '{ print $1 }')
+          for C in $CONTAINERS_TO_STOP; do docker kill $C; done;
+          for C in $CONTAINERS_TO_STOP; do docker rm $C; done;
