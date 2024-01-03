@@ -148,6 +148,7 @@ export function ChatPage({
             name="toSend"
             type="text"
             placeholder="Send a message "
+            autoComplete="off"
             required
           />
           <button type="submit">

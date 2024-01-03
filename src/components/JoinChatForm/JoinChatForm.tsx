@@ -82,6 +82,7 @@ export function JoinChatForm({ onSetNickname, onSetNotificationText, socket, roo
               className={styles.userNameInput}
               onChange={handleInputTextChange}
               value={userNickname}
+              autoComplete="off"
               placeholder=" "
               required
             />
