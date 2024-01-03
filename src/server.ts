@@ -128,4 +128,3 @@ io.on('connection', (socket) => {
 })
 
 httpServer.listen(3000, "0.0.0.0")
-console.log('Server Running')

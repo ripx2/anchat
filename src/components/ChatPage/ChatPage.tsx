@@ -38,12 +38,10 @@ export function ChatPage({
       if (sessionStorage.getItem("allChatMessages")) { /*pregunta si hay algo guardado en sessionStorage */
         const auxMessages = JSON.parse(sessionStorage.getItem("allChatMessages")!)
         setAllChatMessages(auxMessages)
-        console.log(`Se refresco la pagina y se recuperaron los siguientes mensajes ${auxMessages}`)
       }
       return
     }
     sessionStorage.setItem("allChatMessages", JSON.stringify(allChatMessages))
-    console.log(sessionStorage.getItem("allChatMessages")); /*QUITAAAAAAARRRRRRR */
   }, [allChatMessages])
 
 
@@ -57,7 +55,7 @@ export function ChatPage({
       }
       setAllChatMessages((prevState) => [...prevState, chatMessage])
     })
-    console.log(allChatMessages);
+    /*console.log(allChatMessages);*/
     return () => {
       socket.off('Message')
     }

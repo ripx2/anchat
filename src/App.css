@@ -55,7 +55,7 @@ button {
   /*--card-box-shadow: 0.875rem 1.6875rem 2.8125rem 0.25rem var(--color-for-shadow); /*la del dise frigma*/
   --color-for-shadow: rgba(112, 144, 176, 0.2);
   /*--primary-color: rgb(113, 202, 209); /*Lo saco Jorge Con paint*/
-  --primary-color: rgba(123, 203, 212, 1);
+  --primary-color: #7bcbd4;
   /*Estaba en figma*/
 
   --primary-color-contrast: #ffffff;
@@ -65,6 +65,7 @@ button {
   background: var(--primary-color-contrast);
   transition: background ease-in var(--time-bg-change);
 }
+
 
 /*|DARK THEME VARIABLES*/
 [data-theme="dark"] {

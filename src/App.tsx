@@ -67,6 +67,7 @@ function App() {
           <label className="dark_mode_label" htmlFor='darkmode-toggle'>
             <MdWbSunny className="sun" />
             <FaMoon className="moon" />
+
           </label>
         </div>
       </header>

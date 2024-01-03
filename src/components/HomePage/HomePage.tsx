@@ -76,7 +76,6 @@ export function HomePage({ onSuccessConnection }: HomePageProps) {
         socket.on('RoomIdCreate', (message) => {
           notificationText = message.message;
           joinedOrCreatedRoom = "createdRoom";
-          console.log(`Se ha creado el chat con codigo ${message.room}`)
           notifyConnection(message.room, socket, notificationText, joinedOrCreatedRoom);
         })
       }
