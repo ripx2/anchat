@@ -4,7 +4,7 @@ import styles from './ChatPage.module.css'
 import { MessageChatReceived } from '../MessageChatReceived'
 import { MessageChatSend } from '../MessageChatSend'
 import { Socket } from 'socket.io-client'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 interface ChatPageProps {
   roomId: string
@@ -29,6 +29,9 @@ export function ChatPage({
 
   const [allChatMessages, setAllChatMessages] = useState<any[]>([])
   const [loading, setLoading] = useState(false)
+
+  /*Referencia para scroll automatico nuevos mensajes */
+  const messageEndRef = useRef<null | HTMLDivElement>(null)
 
   sessionStorage.setItem("nickname", nickname)
 
@@ -97,6 +100,16 @@ export function ChatPage({
     onNotificationText('Link guardado con el portapapeles')
   }
 
+
+  const scrollToBottom = () => {
+    messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
+  }
+
+  useEffect(() => {
+    scrollToBottom()
+  }, [allChatMessages])
+
+
   return (
     <div className={styles.root}  >
 
@@ -126,6 +139,7 @@ export function ChatPage({
             ),
           )}
         </div>
+        <div ref={messageEndRef}></div>
       </div>
 
       <form onSubmit={onSubmit} className={styles.sendMessageContainer}>
