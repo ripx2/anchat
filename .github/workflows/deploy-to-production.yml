@@ -1,0 +1,43 @@
+name: Deploy to Production
+on:
+  push:
+    branches: [ "master" ]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Docker Login
+      uses: docker/login-action@v3.0.0
+      with:
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Build and push Front Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        tags: yucacodes/anchat-front:${{ github.sha }}
+        push: true
+        target: front
+        build-args: VITE_SOCKET_URL=server.anchat.yuca.codes
+    - name: Build and push Server Docker image
+      uses: docker/build-push-action@v5.1.0
+      with:
+        tags: yucacodes/anchat-server:${{ github.sha }}
+        push: true
+        target: server
+        build-args: VITE_SOCKET_URL=server.anchat.yuca.codes
+    - name: Deploy
+      uses: appleboy/ssh-action@v1.0.1
+      with:
+        host: anchat.yuca.codes
+        username: deployer
+        key: ${{ secrets.DEPLOYER_USER_KEY }}
+        script: |
+          docker run -d --restart=unless-stopped -e VIRTUAL_HOST=server.anchat.yuca.codes -e LETSENCRYPT_HOST=server.anchat.yuca.codes yucacodes/anchat-server:${{ github.sha }}
+          CONTAINERS_TO_STOP=$(docker ps --format '{{.ID}} {{.Image}}' | grep yucacodes/anchat-server | grep -v ${{ github.sha }} | awk '{ print $1 }')
+          for C in $CONTAINERS_TO_STOP; do docker kill $C; done;
+          for C in $CONTAINERS_TO_STOP; do docker rm $C; done;
+          docker run -d --restart=unless-stopped -e VIRTUAL_HOST=anchat.yuca.codes -e LETSENCRYPT_HOST=anchat.yuca.codes yucacodes/anchat-front:${{ github.sha }}
+          CONTAINERS_TO_STOP=$(docker ps --format '{{.ID}} {{.Image}}' | grep yucacodes/anchat-front | grep -v ${{ github.sha }} | awk '{ print $1 }')
+          for C in $CONTAINERS_TO_STOP; do docker kill $C; done;
+          for C in $CONTAINERS_TO_STOP; do docker rm $C; done;
+          docker image prune --all --force
