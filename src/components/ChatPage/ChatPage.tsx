@@ -138,8 +138,8 @@ export function ChatPage({
               />
             ),
           )}
+          <div ref={messageEndRef}></div>
         </div>
-        <div ref={messageEndRef}></div>
       </div>
 
       <form onSubmit={onSubmit} className={styles.sendMessageContainer}>
