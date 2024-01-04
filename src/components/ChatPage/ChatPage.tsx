@@ -102,7 +102,7 @@ export function ChatPage({
 
 
   const scrollToBottom = () => {
-    messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    messageEndRef.current?.scrollIntoView({ block: 'end', behavior: "smooth" })
   }
 
   useEffect(() => {
@@ -138,7 +138,7 @@ export function ChatPage({
               />
             ),
           )}
-          <div ref={messageEndRef}></div>
+          <div ref={messageEndRef} />
         </div>
       </div>
 
