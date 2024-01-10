@@ -11,6 +11,7 @@ interface ChatPageProps {
   nickname: string
   socket: Socket
   onNotificationText: (notificationText: string) => void
+  showExternalNotification: boolean
 }
 
 type chatMessage = {
@@ -25,6 +26,7 @@ export function ChatPage({
   nickname,
   socket,
   onNotificationText,
+  showExternalNotification,
 }: ChatPageProps) {
 
   const [allChatMessages, setAllChatMessages] = useState<any[]>([])
@@ -42,9 +44,15 @@ export function ChatPage({
         const auxMessages = JSON.parse(sessionStorage.getItem("allChatMessages")!)
         setAllChatMessages(auxMessages)
       }
+      notifyUser()
       return
     }
+    scrollToBottom()
     sessionStorage.setItem("allChatMessages", JSON.stringify(allChatMessages))
+    if (showExternalNotification) {
+      const lastMessage: chatMessage = allChatMessages[allChatMessages.length - 1]
+      lastMessage.messageRole === 'received' ? notifyUser(lastMessage.message, lastMessage.nickname) : null
+    }
   }, [allChatMessages])
 
 
@@ -101,14 +109,33 @@ export function ChatPage({
   }
 
 
+  /*Auto scroll para los mensajes */
   const scrollToBottom = () => {
     messageEndRef.current?.scrollIntoView({ block: 'end', behavior: "smooth" })
   }
 
+  /*
   useEffect(() => {
     scrollToBottom()
   }, [allChatMessages])
+  /* */
 
+  /*Notificaciones para escritorio */
+  async function notifyUser(notificationText = "Se activaron las notificaciones para anChat...", nickname?: string) {
+    if (!("Notification" in window)) {
+      alert("El navegador no soporta notificaciones")
+    }
+    else if (Notification.permission === "granted") {
+      new Notification(nickname + " dice:", { body: notificationText })
+    }
+    else if (Notification.permission !== "denied") {
+      await Notification.requestPermission().then((permission) => {
+        if (permission == "granted") {
+          new Notification(notificationText)
+        }
+      })
+    }
+  }
 
   return (
     <div className={styles.root}  >
